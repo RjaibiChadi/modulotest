@@ -2,7 +2,9 @@ package noblur.com.modulotest.data.source.remote
 
 
 import androidx.annotation.VisibleForTesting
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import noblur.com.modulotest.data.repository.Device
 import noblur.com.modulotest.data.repository.DeviceDataSource
 
@@ -11,6 +13,22 @@ class DeviceRemoteDataSource(
     val compositeDisposable: CompositeDisposable,
     val api: ModuloService
 ) : DeviceDataSource {
+
+
+    override fun getData(callback: DeviceDataSource.LoadDataCallback) {
+
+        compositeDisposable?.add(api.getData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {it-> callback.onDataLoaded(it)},
+                { error ->
+
+                    callback.onDataNotAvailable(500)
+                }
+            )
+        )
+    }
 
     override fun updateDevice(device: Device) {
 

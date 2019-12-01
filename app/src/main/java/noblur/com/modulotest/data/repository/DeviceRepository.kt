@@ -1,10 +1,30 @@
 package noblur.com.modulotest.data.repository
 
+import noblur.com.modulotest.data.entity.Data
+
 
 class DeviceRepository(
     private val answerRemoteDataSource: DeviceDataSource,
     private val answerLocalDataSource: DeviceDataSource
 ): DeviceDataSource {
+
+    override fun getData(callback: DeviceDataSource.LoadDataCallback) {
+
+        answerRemoteDataSource.getData(object :DeviceDataSource.LoadDataCallback{
+            override fun onDataLoaded(data: Data) {
+
+                callback.onDataLoaded(data)
+            }
+
+            override fun onDataNotAvailable(code: Int) {
+
+                callback.onDataNotAvailable(code)
+
+            }
+
+
+        })
+    }
 
 
     override fun updateDevice(device: Device) {
@@ -22,9 +42,21 @@ class DeviceRepository(
 
             override fun onDataNotAvailable(code: Int) {
 
-
                 callback.onDataNotAvailable(code)
+                answerRemoteDataSource.getData(object :DeviceDataSource.LoadDataCallback{
+                    override fun onDataLoaded(data: Data) {
 
+                        callback.onDevicesLoaded(data.devices)
+                    }
+
+                    override fun onDataNotAvailable(code: Int) {
+
+                        callback.onDataNotAvailable(500)
+
+                    }
+
+
+                })
             }
 
 

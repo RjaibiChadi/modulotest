@@ -10,6 +10,13 @@ class DeviceLocalDataSource(
     val appExecutors: AppExecutors,
     val deviceDao: DeviceDao
 ): DeviceDataSource {
+
+
+    override fun getData(callback: DeviceDataSource.LoadDataCallback) {
+
+
+    }
+
     override fun updateDevice(device: Device) {
 
         appExecutors.diskIO.execute { deviceDao.updateDevice(device) }

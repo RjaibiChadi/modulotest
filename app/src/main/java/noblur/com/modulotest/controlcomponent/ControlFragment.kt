@@ -69,6 +69,7 @@ class ControlFragment : Fragment() {
 
 
                 txt_value.text = progress.toString()
+                viewModel.updateSeekBar(txt_value.text.toString())
 
             }
 
@@ -87,6 +88,8 @@ class ControlFragment : Fragment() {
         seek_bar_radiator.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 txt_value.text = progress.toString()
+                viewModel.updateSeekBar(txt_value.text.toString())
+
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
