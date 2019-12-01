@@ -38,6 +38,7 @@ class DeviceRepository(
             override fun onDevicesLoaded(devices: List<Device>) {
 
                 callback.onDevicesLoaded(devices)
+
             }
 
             override fun onDataNotAvailable(code: Int) {
