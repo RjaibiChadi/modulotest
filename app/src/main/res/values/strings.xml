@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Modulotest</string>
+    <string name="prompt_first_name">Prénom</string>
+    <string name="prompt_last_name">Nom</string>
+    <string name="prompt_birthday">Date de naissance</string>
+    <string name="password">N Rue</string>
+    <string name="prompt_street">Rue</string>
+    <string name="prompt_city">Ville</string>
+    <string name="prompt_postal_code">Code Postale</string>
+    <string name="prompt_country">Pays</string>
+</resources>
